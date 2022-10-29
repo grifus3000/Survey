@@ -22,7 +22,7 @@ struct BannerView: View {
                     Button("Retry", action: buttonTapHandler)
                 }
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 100)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: UIScreen.main.bounds.size.height / 10)
             .background(backgroundColor)
             
             Spacer()
@@ -32,8 +32,6 @@ struct BannerView: View {
 
 struct BannerView_Previews: PreviewProvider {
     static var previews: some View {
-        BannerView(bannerText: "Success", backgroundColor: .green, isRetryButtonVisible: false) {
-            
-        }
+        BannerView(bannerText: "Success", backgroundColor: .green, isRetryButtonVisible: false) { }
     }
 }
