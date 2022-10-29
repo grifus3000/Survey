@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SurveyView: View {
-    @ObservedObject var viewModel = SurveyViewModel(networkService: NetworkService(), dataCoder: DataCoder())
+    @ObservedObject var viewModel = SurveyViewModel(networkService: NetworkService(), dataCoderService: DataCoderService())
     
     var body: some View {
         NavigationView {

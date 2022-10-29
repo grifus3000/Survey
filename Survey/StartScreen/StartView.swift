@@ -15,7 +15,7 @@ struct StartView: View {
                 Spacer()
                 NavigationLink("Start survey") {
                     let viewModel = SurveyViewModel(networkService: NetworkService(),
-                                                    dataCoder: DataCoder())
+                                                    dataCoderService: DataCoderService())
                     SurveyView(viewModel: viewModel)
                 }
                 Spacer()

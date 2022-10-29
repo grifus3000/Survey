@@ -115,11 +115,11 @@ class SurveyViewModel: SurveyViewModeling {
     private var timer: Timer?
     
     private let networkService: NetworkServiceProtocol
-    private let dataCoder: DataCoderProtocol
+    private let dataCoderService: DataCoderServiceProtocol
     
-    init(networkService: NetworkServiceProtocol, dataCoder: DataCoderProtocol) {
+    init(networkService: NetworkServiceProtocol, dataCoderService: DataCoderServiceProtocol) {
         self.networkService = networkService
-        self.dataCoder = dataCoder
+        self.dataCoderService = dataCoderService
         
         getModel()
     }
@@ -172,7 +172,7 @@ class SurveyViewModel: SurveyViewModeling {
     
     private func post(answer: AnswerPostData) {
         guard let url = URL(string: postUrl),
-              let data = dataCoder.encode(element: answer) else {
+              let data = dataCoderService.encode(element: answer) else {
             return
         }
         
@@ -224,7 +224,7 @@ class SurveyViewModel: SurveyViewModeling {
             } receiveValue: { [weak self] data in
                 guard let self = self else { return }
                 
-                self.questions = self.dataCoder.decode(data: data)
+                self.questions = self.dataCoderService.decode(data: data)
                 self.currentIndex = self.questions.first?.id ?? 0
             }
             .store(in: &disposables)
