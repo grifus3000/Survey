@@ -36,23 +36,29 @@ struct SurveyView: View {
                         Text(viewModel.question)
                         TextField("Answer", text: $viewModel.answer)
                             .multilineTextAlignment(.center)
-                            .disabled(viewModel.isSubmitActionDisabled)
+                            .disabled(viewModel.isAnswerFieldDisabled)
                         Button(viewModel.submitButtonTitle) {
                             viewModel.submitAnswer()
                         }
-                        .disabled(viewModel.isSubmitActionDisabled)
+                        .disabled(viewModel.isSubmitButtonDisabled)
                         .padding()
                     }
                     Spacer()
                 }
                 if viewModel.bannerIsShowing {
-                    BannerView(bannerText: viewModel.bannerText, backgroundColor: viewModel.bannerColor)
+                    BannerView(bannerText: viewModel.bannerText,
+                               backgroundColor: viewModel.bannerColor,
+                               isRetryButtonVisible: viewModel.isRetryButtonVisible,
+                               buttonTapHandler: viewModel.retryButtonHandler)
                         .onAppear {
                             viewModel.bannerWasAppeared()
                         }
                 }
             }
         }
+        .onAppear(perform: {
+            viewModel.viewOnAppear()
+        })
         .onDisappear {
             viewModel.viewOnDisappear()
         }

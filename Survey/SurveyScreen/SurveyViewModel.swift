@@ -15,10 +15,16 @@ protocol SurveyViewModeling: ObservableObject {
     var totalQuestionsCount: Int { get }
     var isNextButtonDisabled: Bool { get }
     var isPreviousButtonDisabled: Bool { get }
-    var isSubmitActionDisabled: Bool { get }
+    var isSubmitButtonDisabled: Bool { get }
+    var isAnswerFieldDisabled: Bool { get }
     var submittedQuestionsCount: Int { get }
     var question: String { get }
+    
+    var isRetryButtonVisible: Bool { get set }
+    var retryButtonHandler: () -> Void { get set }
+    
     var submitButtonTitle: String { get }
+    
     var answer: String { get }
     var bannerIsShowing: Bool { get set }
     var bannerText: String { get set }
@@ -28,6 +34,8 @@ protocol SurveyViewModeling: ObservableObject {
     func getPreviousQuestion()
     func submitAnswer()
     func bannerWasAppeared()
+    
+    func viewOnAppear()
     func viewOnDisappear()
 }
 
@@ -61,16 +69,28 @@ class SurveyViewModel: SurveyViewModeling {
         return submittedQuestions.count
     }
     
-    var isSubmitActionDisabled: Bool {
-        guard let isAnswerSubmitted =  currentQuestion?.isAnswerSubmitted else {
-            return false
+    @Published var isRetryButtonVisible = false
+    var retryButtonHandler: () -> Void = {}
+    
+    var isAnswerFieldDisabled: Bool {
+        guard let isAnswerSubmitted = currentQuestion?.isAnswerSubmitted else {
+            return true
+        }
+
+        return isAnswerSubmitted
+    }
+    
+    var isSubmitButtonDisabled: Bool {
+        guard let isAnswerSubmitted = currentQuestion?.isAnswerSubmitted,
+              !answer.isEmpty else {
+            return true
         }
 
         return isAnswerSubmitted
     }
     
     var submitButtonTitle: String {
-        if isSubmitActionDisabled {
+        if currentQuestion?.isAnswerSubmitted ?? false {
             return "Already submitted"
         } else {
             return "Submit"
@@ -116,12 +136,23 @@ class SurveyViewModel: SurveyViewModeling {
         timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(didEndTimer), userInfo: nil, repeats: false)
     }
     
+    func viewOnAppear() {
+        retryButtonHandler = { [weak self] in
+            self?.retry()
+        }
+    }
+    
     func viewOnDisappear() {
         for index in questions.indices {
             questions[index].answer = nil
         }
         currentIndex = questions.first?.id ?? 0
         timer?.fire()
+    }
+    
+    private func retry() {
+        timer?.fire()
+        submitAnswer()
     }
     
     func submitAnswer() {
@@ -168,11 +199,13 @@ class SurveyViewModel: SurveyViewModeling {
     private func postWasSuccessful() {
         questions[currentIndex - 1].answer = answer
         setupAndShowBanner(title: "Success", color: .green)
+        isRetryButtonVisible = false
     }
     
     
     private func postWasNotSuccessful() {
         setupAndShowBanner(title: "Failure", color: .red)
+        isRetryButtonVisible = true
     }
     
     private func setupAndShowBanner(title: String, color: Color) {
