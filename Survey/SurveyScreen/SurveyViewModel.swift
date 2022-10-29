@@ -13,12 +13,13 @@ protocol SurveyViewModeling: ObservableObject {
     var questions: [QuestionModel] { get set }
     var currentIndex: Int { get set }
     var totalQuestionsCount: Int { get }
+    var submittedQuestionsCount: Int { get }
+    var currentQuestion: QuestionModel? { get }
+    
     var isNextButtonDisabled: Bool { get }
     var isPreviousButtonDisabled: Bool { get }
     var isSubmitButtonDisabled: Bool { get }
     var isAnswerFieldDisabled: Bool { get }
-    var submittedQuestionsCount: Int { get }
-    var question: String { get }
     
     var isRetryButtonVisible: Bool { get set }
     var retryButtonHandler: () -> Void { get set }
@@ -40,11 +41,7 @@ protocol SurveyViewModeling: ObservableObject {
 }
 
 class SurveyViewModel: SurveyViewModeling {
-    private var currentQuestion: QuestionModel? {
-        questions.first { questionModel in
-            questionModel.id == currentIndex
-        }
-    }
+    // MARK: - Public Properties
     
     var totalQuestionsCount: Int {
         questions.count
@@ -56,10 +53,6 @@ class SurveyViewModel: SurveyViewModeling {
     
     var isPreviousButtonDisabled: Bool {
         return currentIndex == 1
-    }
-    
-    var question: String {
-        return currentQuestion?.question ?? ""
     }
     
     var submittedQuestionsCount: Int {
@@ -108,6 +101,14 @@ class SurveyViewModel: SurveyViewModeling {
         }
     }
     
+    // MARK: - Private Properties
+    
+    var currentQuestion: QuestionModel? {
+        questions.first { questionModel in
+            questionModel.id == currentIndex
+        }
+    }
+    
     private let getUrl = "https://xm-assignment.web.app/questions"
     private let postUrl = "https://xm-assignment.web.app/question/submit"
     
@@ -117,12 +118,16 @@ class SurveyViewModel: SurveyViewModeling {
     private let networkService: NetworkServiceProtocol
     private let dataCoderService: DataCoderServiceProtocol
     
+    // MARK: - Lifecycle
+    
     init(networkService: NetworkServiceProtocol, dataCoderService: DataCoderServiceProtocol) {
         self.networkService = networkService
         self.dataCoderService = dataCoderService
         
         getModel()
     }
+    
+    // MARK: - Public Methods
     
     func getNextQuestion() {
         currentIndex += 1
@@ -138,7 +143,7 @@ class SurveyViewModel: SurveyViewModeling {
     
     func viewOnAppear() {
         retryButtonHandler = { [weak self] in
-            self?.retry()
+            self?.retrySendAnswer()
         }
     }
     
@@ -148,11 +153,6 @@ class SurveyViewModel: SurveyViewModeling {
         }
         currentIndex = questions.first?.id ?? 0
         timer?.fire()
-    }
-    
-    private func retry() {
-        timer?.fire()
-        submitAnswer()
     }
     
     func submitAnswer() {
@@ -166,8 +166,15 @@ class SurveyViewModel: SurveyViewModeling {
         post(answer: answerModel)
     }
     
+    // MARK: - Private Methods
+    
     @objc private func didEndTimer() {
         bannerIsShowing.toggle()
+    }
+    
+    private func retrySendAnswer() {
+        timer?.fire()
+        submitAnswer()
     }
     
     private func post(answer: AnswerPostData) {

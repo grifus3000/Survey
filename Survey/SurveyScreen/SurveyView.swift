@@ -33,7 +33,7 @@ struct SurveyView: View {
                     Spacer()
                     
                     VStack {
-                        Text(viewModel.question)
+                        Text(viewModel.currentQuestion?.question ?? "")
                         TextField("Answer", text: $viewModel.answer)
                             .multilineTextAlignment(.center)
                             .disabled(viewModel.isAnswerFieldDisabled)
