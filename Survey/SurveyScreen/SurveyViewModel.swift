@@ -42,16 +42,33 @@ protocol SurveyViewModeling: ObservableObject {
 class SurveyViewModel: SurveyViewModeling {
     // MARK: - Public Properties
     
-    var totalQuestionsCount: Int {
-        questions.count
-    }
-    
     var isNextButtonDisabled: Bool {
         isNextIdNotAvailable
     }
     
     var isPreviousButtonDisabled: Bool {
         isPreviousIdNotAvailable
+    }
+    
+    var isSubmitButtonDisabled: Bool {
+        guard let isAnswerSubmitted = currentQuestion?.isAnswerSubmitted,
+              !answer.isEmpty else {
+            return true
+        }
+
+        return isAnswerSubmitted
+    }
+    
+    var isAnswerFieldDisabled: Bool {
+        guard let isAnswerSubmitted = currentQuestion?.isAnswerSubmitted else {
+            return true
+        }
+
+        return isAnswerSubmitted
+    }
+    
+    var totalQuestionsCount: Int {
+        questions.count
     }
     
     var submittedQuestionsCount: Int {
@@ -68,23 +85,6 @@ class SurveyViewModel: SurveyViewModeling {
         questions.first { questionModel in
             questionModel.id == currentId
         }
-    }
-    
-    var isAnswerFieldDisabled: Bool {
-        guard let isAnswerSubmitted = currentQuestion?.isAnswerSubmitted else {
-            return true
-        }
-
-        return isAnswerSubmitted
-    }
-    
-    var isSubmitButtonDisabled: Bool {
-        guard let isAnswerSubmitted = currentQuestion?.isAnswerSubmitted,
-              !answer.isEmpty else {
-            return true
-        }
-
-        return isAnswerSubmitted
     }
     
     var submitButtonTitle: String {
@@ -130,8 +130,6 @@ class SurveyViewModel: SurveyViewModeling {
     init(networkService: NetworkServiceProtocol, dataCoderService: DataCoderServiceProtocol) {
         self.networkService = networkService
         self.dataCoderService = dataCoderService
-        
-        
     }
     
     // MARK: - Public Methods
