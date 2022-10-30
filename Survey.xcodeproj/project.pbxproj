@@ -16,9 +16,23 @@
 		26D0B59F290BC7DF000F1F78 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D0B59E290BC7DF000F1F78 /* NetworkService.swift */; };
 		26D0B5A1290BC86B000F1F78 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D0B5A0290BC86B000F1F78 /* QuestionModel.swift */; };
 		26D0B5A3290BE548000F1F78 /* SurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D0B5A2290BE548000F1F78 /* SurveyView.swift */; };
-		26D0B5AE290BF3E4000F1F78 /* DataCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D0B5AD290BF3E4000F1F78 /* DataCoder.swift */; };
+		26D0B5AE290BF3E4000F1F78 /* DataCoderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D0B5AD290BF3E4000F1F78 /* DataCoderService.swift */; };
 		26D0B5B0290BF825000F1F78 /* SurveyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D0B5AF290BF825000F1F78 /* SurveyViewModel.swift */; };
+		26F08C7F290E78F4003DD7AA /* SurveyViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F08C7E290E78F4003DD7AA /* SurveyViewModelTests.swift */; };
+		26F08C86290E7E1F003DD7AA /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F08C85290E7E1F003DD7AA /* NetworkServiceMock.swift */; };
+		26F08C88290E7E2C003DD7AA /* DataCoderServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F08C87290E7E2C003DD7AA /* DataCoderServiceMock.swift */; };
+		26F08C8A290EAC2E003DD7AA /* DataCoderServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F08C89290EAC2E003DD7AA /* DataCoderServiceTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		26F08C80290E78F4003DD7AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26D0B585290BBC3F000F1F78 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 26D0B58C290BBC3F000F1F78;
+			remoteInfo = Survey;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		266C4FCC290D612600750643 /* AnswerPostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerPostData.swift; sourceTree = "<group>"; };
@@ -31,12 +45,24 @@
 		26D0B59E290BC7DF000F1F78 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		26D0B5A0290BC86B000F1F78 /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		26D0B5A2290BE548000F1F78 /* SurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyView.swift; sourceTree = "<group>"; };
-		26D0B5AD290BF3E4000F1F78 /* DataCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCoder.swift; sourceTree = "<group>"; };
+		26D0B5AD290BF3E4000F1F78 /* DataCoderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCoderService.swift; sourceTree = "<group>"; };
 		26D0B5AF290BF825000F1F78 /* SurveyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewModel.swift; sourceTree = "<group>"; };
+		26F08C7C290E78F4003DD7AA /* SurveyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurveyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		26F08C7E290E78F4003DD7AA /* SurveyViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewModelTests.swift; sourceTree = "<group>"; };
+		26F08C85290E7E1F003DD7AA /* NetworkServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
+		26F08C87290E7E2C003DD7AA /* DataCoderServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCoderServiceMock.swift; sourceTree = "<group>"; };
+		26F08C89290EAC2E003DD7AA /* DataCoderServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCoderServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		26D0B58A290BBC3F000F1F78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26F08C79290E78F4003DD7AA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -67,7 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				26D0B59E290BC7DF000F1F78 /* NetworkService.swift */,
-				26D0B5AD290BF3E4000F1F78 /* DataCoder.swift */,
+				26D0B5AD290BF3E4000F1F78 /* DataCoderService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -76,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				26D0B58F290BBC3F000F1F78 /* Survey */,
+				26F08C7D290E78F4003DD7AA /* SurveyTests */,
 				26D0B58E290BBC3F000F1F78 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				26D0B58D290BBC3F000F1F78 /* Survey.app */,
+				26F08C7C290E78F4003DD7AA /* SurveyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,6 +156,25 @@
 			path = SurveyScreen;
 			sourceTree = "<group>";
 		};
+		26F08C7D290E78F4003DD7AA /* SurveyTests */ = {
+			isa = PBXGroup;
+			children = (
+				26F08C8B290EAD85003DD7AA /* Mocks */,
+				26F08C7E290E78F4003DD7AA /* SurveyViewModelTests.swift */,
+				26F08C89290EAC2E003DD7AA /* DataCoderServiceTests.swift */,
+			);
+			path = SurveyTests;
+			sourceTree = "<group>";
+		};
+		26F08C8B290EAD85003DD7AA /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				26F08C87290E7E2C003DD7AA /* DataCoderServiceMock.swift */,
+				26F08C85290E7E1F003DD7AA /* NetworkServiceMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,6 +195,24 @@
 			productReference = 26D0B58D290BBC3F000F1F78 /* Survey.app */;
 			productType = "com.apple.product-type.application";
 		};
+		26F08C7B290E78F4003DD7AA /* SurveyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26F08C84290E78F4003DD7AA /* Build configuration list for PBXNativeTarget "SurveyTests" */;
+			buildPhases = (
+				26F08C78290E78F4003DD7AA /* Sources */,
+				26F08C79290E78F4003DD7AA /* Frameworks */,
+				26F08C7A290E78F4003DD7AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				26F08C81290E78F4003DD7AA /* PBXTargetDependency */,
+			);
+			name = SurveyTests;
+			productName = SurveyTests;
+			productReference = 26F08C7C290E78F4003DD7AA /* SurveyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -160,6 +225,10 @@
 				TargetAttributes = {
 					26D0B58C290BBC3F000F1F78 = {
 						CreatedOnToolsVersion = 14.0.1;
+					};
+					26F08C7B290E78F4003DD7AA = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = 26D0B58C290BBC3F000F1F78;
 					};
 				};
 			};
@@ -177,6 +246,7 @@
 			projectRoot = "";
 			targets = (
 				26D0B58C290BBC3F000F1F78 /* Survey */,
+				26F08C7B290E78F4003DD7AA /* SurveyTests */,
 			);
 		};
 /* End PBXProject section */
@@ -191,6 +261,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		26F08C7A290E78F4003DD7AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -201,7 +278,7 @@
 				26D0B59F290BC7DF000F1F78 /* NetworkService.swift in Sources */,
 				26D0B593290BBC3F000F1F78 /* StartView.swift in Sources */,
 				26D0B591290BBC3F000F1F78 /* SurveyApp.swift in Sources */,
-				26D0B5AE290BF3E4000F1F78 /* DataCoder.swift in Sources */,
+				26D0B5AE290BF3E4000F1F78 /* DataCoderService.swift in Sources */,
 				26D0B5A3290BE548000F1F78 /* SurveyView.swift in Sources */,
 				266C4FCD290D612600750643 /* AnswerPostData.swift in Sources */,
 				26D0B5B0290BF825000F1F78 /* SurveyViewModel.swift in Sources */,
@@ -210,7 +287,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		26F08C78290E78F4003DD7AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26F08C86290E7E1F003DD7AA /* NetworkServiceMock.swift in Sources */,
+				26F08C8A290EAC2E003DD7AA /* DataCoderServiceTests.swift in Sources */,
+				26F08C88290E7E2C003DD7AA /* DataCoderServiceMock.swift in Sources */,
+				26F08C7F290E78F4003DD7AA /* SurveyViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		26F08C81290E78F4003DD7AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 26D0B58C290BBC3F000F1F78 /* Survey */;
+			targetProxy = 26F08C80290E78F4003DD7AA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		26D0B599290BBC40000F1F78 /* Debug */ = {
@@ -383,6 +479,40 @@
 			};
 			name = Release;
 		};
+		26F08C82290E78F4003DD7AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = some.SurveyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Survey.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Survey";
+			};
+			name = Debug;
+		};
+		26F08C83290E78F4003DD7AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = some.SurveyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Survey.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Survey";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -400,6 +530,15 @@
 			buildConfigurations = (
 				26D0B59C290BBC40000F1F78 /* Debug */,
 				26D0B59D290BBC40000F1F78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26F08C84290E78F4003DD7AA /* Build configuration list for PBXNativeTarget "SurveyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26F08C82290E78F4003DD7AA /* Debug */,
+				26F08C83290E78F4003DD7AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -10,8 +10,7 @@ import Combine
 import SwiftUI
 
 protocol SurveyViewModeling: ObservableObject {
-    var questions: [QuestionModel] { get set }
-    var currentIndex: Int { get set }
+    var currentId: Int? { get set }
     var totalQuestionsCount: Int { get }
     var submittedQuestionsCount: Int { get }
     var currentQuestion: QuestionModel? { get }
@@ -48,11 +47,11 @@ class SurveyViewModel: SurveyViewModeling {
     }
     
     var isNextButtonDisabled: Bool {
-        return currentIndex == totalQuestionsCount
+        isNextIdNotAvailable
     }
     
     var isPreviousButtonDisabled: Bool {
-        return currentIndex == 1
+        isPreviousIdNotAvailable
     }
     
     var submittedQuestionsCount: Int {
@@ -64,6 +63,12 @@ class SurveyViewModel: SurveyViewModeling {
     
     @Published var isRetryButtonVisible = false
     var retryButtonHandler: () -> Void = {}
+    
+    var currentQuestion: QuestionModel? {
+        questions.first { questionModel in
+            questionModel.id == currentId
+        }
+    }
     
     var isAnswerFieldDisabled: Bool {
         guard let isAnswerSubmitted = currentQuestion?.isAnswerSubmitted else {
@@ -94,8 +99,7 @@ class SurveyViewModel: SurveyViewModeling {
     @Published var bannerColor: Color = .clear
     @Published var bannerIsShowing: Bool = false
     @Published var answer: String = ""
-    @Published var questions: [QuestionModel] = []
-    @Published var currentIndex = 0 {
+    @Published var currentId: Int? {
         didSet {
             answer = currentQuestion?.answer ?? ""
         }
@@ -103,11 +107,7 @@ class SurveyViewModel: SurveyViewModeling {
     
     // MARK: - Private Properties
     
-    var currentQuestion: QuestionModel? {
-        questions.first { questionModel in
-            questionModel.id == currentIndex
-        }
-    }
+    @Published private var questions: [QuestionModel] = []
     
     private let getUrl = "https://xm-assignment.web.app/questions"
     private let postUrl = "https://xm-assignment.web.app/question/submit"
@@ -118,23 +118,34 @@ class SurveyViewModel: SurveyViewModeling {
     private let networkService: NetworkServiceProtocol
     private let dataCoderService: DataCoderServiceProtocol
     
+    private var isNextIdNotAvailable: Bool {
+        return currentId == questions.last?.id
+    }
+    private var isPreviousIdNotAvailable: Bool {
+        return currentId == questions.first?.id
+    }
+    
     // MARK: - Lifecycle
     
     init(networkService: NetworkServiceProtocol, dataCoderService: DataCoderServiceProtocol) {
         self.networkService = networkService
         self.dataCoderService = dataCoderService
         
-        getModel()
+        
     }
     
     // MARK: - Public Methods
     
     func getNextQuestion() {
-        currentIndex += 1
+        if !isNextIdNotAvailable {
+            currentId? += 1
+        }
     }
     
     func getPreviousQuestion() {
-        currentIndex -= 1
+        if !isPreviousIdNotAvailable {
+            currentId? -= 1
+        }
     }
     
     func bannerWasAppeared() {
@@ -142,6 +153,7 @@ class SurveyViewModel: SurveyViewModeling {
     }
     
     func viewOnAppear() {
+        getModel()
         retryButtonHandler = { [weak self] in
             self?.retrySendAnswer()
         }
@@ -151,7 +163,7 @@ class SurveyViewModel: SurveyViewModeling {
         for index in questions.indices {
             questions[index].answer = nil
         }
-        currentIndex = questions.first?.id ?? 0
+        currentId = questions.first?.id ?? 0
         timer?.fire()
     }
     
@@ -204,11 +216,12 @@ class SurveyViewModel: SurveyViewModeling {
     }
     
     private func postWasSuccessful() {
-        questions[currentIndex - 1].answer = answer
-        setupAndShowBanner(title: "Success", color: .green)
-        isRetryButtonVisible = false
+        if let index = questions.firstIndex(where: { $0.id == currentId }) {
+            questions[index].answer = answer
+            setupAndShowBanner(title: "Success", color: .green)
+            isRetryButtonVisible = false
+        }
     }
-    
     
     private func postWasNotSuccessful() {
         setupAndShowBanner(title: "Failure", color: .red)
@@ -232,7 +245,7 @@ class SurveyViewModel: SurveyViewModeling {
                 guard let self = self else { return }
                 
                 self.questions = self.dataCoderService.decode(data: data)
-                self.currentIndex = self.questions.first?.id ?? 0
+                self.currentId = self.questions.first?.id ?? 0
             }
             .store(in: &disposables)
     }

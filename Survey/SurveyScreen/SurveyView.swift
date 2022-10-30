@@ -15,7 +15,7 @@ struct SurveyView: View {
             ZStack {
                 VStack {
                     HStack {
-                        Text("Questions \(viewModel.currentIndex) / \(viewModel.totalQuestionsCount)")
+                        Text("Questions \(viewModel.currentId ?? 0) / \(viewModel.totalQuestionsCount)")
                             .padding(10)
                         Spacer()
                         Button("Previous") {
