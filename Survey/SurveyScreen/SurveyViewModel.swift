@@ -20,15 +20,13 @@ protocol SurveyViewModeling: ObservableObject {
     var isSubmitButtonDisabled: Bool { get }
     var isAnswerFieldDisabled: Bool { get }
     
-    var isRetryButtonVisible: Bool { get set }
     var retryButtonHandler: () -> Void { get set }
     
     var submitButtonTitle: String { get }
     
     var answer: String { get }
     var bannerIsShowing: Bool { get set }
-    var bannerText: String { get set }
-    var bannerColor: Color { get set }
+    var bannerModel: BannerModel { get set }
     
     func getNextQuestion()
     func getPreviousQuestion()
@@ -78,7 +76,6 @@ final class SurveyViewModel: SurveyViewModeling {
         return submittedQuestions.count
     }
     
-    @Published var isRetryButtonVisible = false
     var retryButtonHandler: () -> Void = {}
     
     var currentQuestion: QuestionModel? {
@@ -95,9 +92,9 @@ final class SurveyViewModel: SurveyViewModeling {
         }
     }
     
-    @Published var bannerText: String = ""
-    @Published var bannerColor: Color = .clear
     @Published var bannerIsShowing: Bool = false
+    @ObservedObject var bannerModel = BannerModel(bannerText: "some", backgroundColor: .black, isRetryButtonVisible: false)
+    
     @Published var answer: String = ""
     @Published var currentId: Int? {
         didSet {
@@ -221,18 +218,18 @@ final class SurveyViewModel: SurveyViewModeling {
         if let index = questions.firstIndex(where: { $0.id == currentId }) {
             questions[index].answer = answer
             setupAndShowBanner(title: "Success", color: .green)
-            isRetryButtonVisible = false
+            bannerModel.isRetryButtonVisible = false
         }
     }
     
     private func postWasNotSuccessful() {
         setupAndShowBanner(title: "Failure", color: .red)
-        isRetryButtonVisible = true
+        bannerModel.isRetryButtonVisible = true
     }
     
     private func setupAndShowBanner(title: String, color: Color) {
-        bannerText = title
-        bannerColor = color
+        bannerModel.bannerText = title
+        bannerModel.backgroundColor = color
         bannerIsShowing.toggle()
     }
     

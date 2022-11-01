@@ -8,22 +8,20 @@
 import SwiftUI
 
 struct BannerView: View {
-    @State var bannerText: String
-    @State var backgroundColor: Color
-    @State var isRetryButtonVisible: Bool
+    @ObservedObject var model: BannerModel
     
     var buttonTapHandler: () -> Void
     
     var body: some View {
         VStack {
             HStack {
-                Text(bannerText)
-                if isRetryButtonVisible {
+                Text(model.bannerText)
+                if model.isRetryButtonVisible {
                     Button("Retry", action: buttonTapHandler)
                 }
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: UIScreen.main.bounds.size.height / 10)
-            .background(backgroundColor)
+            .background(model.backgroundColor)
             
             Spacer()
         }
@@ -32,6 +30,6 @@ struct BannerView: View {
 
 struct BannerView_Previews: PreviewProvider {
     static var previews: some View {
-        BannerView(bannerText: "Success", backgroundColor: .green, isRetryButtonVisible: false) { }
+        BannerView(model: BannerModel(bannerText: "Success", backgroundColor: .green, isRetryButtonVisible: false)) { }
     }
 }

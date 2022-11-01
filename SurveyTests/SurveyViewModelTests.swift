@@ -142,9 +142,9 @@ final class SurveyViewModelTests: XCTestCase {
         waitForExpectations(timeout: 2)
         
         XCTAssertEqual(sut.currentQuestion?.answer, answer)
-        XCTAssertEqual(sut.isRetryButtonVisible, false)
-        XCTAssertEqual(sut.bannerText, "Success")
-        XCTAssertEqual(sut.bannerColor, Color.green)
+        XCTAssertEqual(sut.bannerModel.isRetryButtonVisible, false)
+        XCTAssertEqual(sut.bannerModel.bannerText, "Success")
+        XCTAssertEqual(sut.bannerModel.backgroundColor, Color.green)
         XCTAssertEqual(sut.bannerIsShowing, true)
     }
     
@@ -165,9 +165,9 @@ final class SurveyViewModelTests: XCTestCase {
         waitForExpectations(timeout: 2)
         
         XCTAssertNil(sut.currentQuestion?.answer)
-        XCTAssertEqual(sut.isRetryButtonVisible, true)
-        XCTAssertEqual(sut.bannerText, "Failure")
-        XCTAssertEqual(sut.bannerColor, Color.red)
+        XCTAssertEqual(sut.bannerModel.isRetryButtonVisible, true)
+        XCTAssertEqual(sut.bannerModel.bannerText, "Failure")
+        XCTAssertEqual(sut.bannerModel.backgroundColor, Color.red)
         XCTAssertEqual(sut.bannerIsShowing, true)
     }
     

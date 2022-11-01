@@ -22,6 +22,7 @@
 		26F08C86290E7E1F003DD7AA /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F08C85290E7E1F003DD7AA /* NetworkServiceMock.swift */; };
 		26F08C88290E7E2C003DD7AA /* DataCoderServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F08C87290E7E2C003DD7AA /* DataCoderServiceMock.swift */; };
 		26F08C8A290EAC2E003DD7AA /* DataCoderServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F08C89290EAC2E003DD7AA /* DataCoderServiceTests.swift */; };
+		26F4984F29117F1E00634430 /* BannerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F4984E29117F1E00634430 /* BannerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		26F08C85290E7E1F003DD7AA /* NetworkServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
 		26F08C87290E7E2C003DD7AA /* DataCoderServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCoderServiceMock.swift; sourceTree = "<group>"; };
 		26F08C89290EAC2E003DD7AA /* DataCoderServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCoderServiceTests.swift; sourceTree = "<group>"; };
+		26F4984E29117F1E00634430 /* BannerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				266C4FCF290D68FB00750643 /* BannerView.swift */,
+				26F4984E29117F1E00634430 /* BannerModel.swift */,
 			);
 			path = BannerView;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				26D0B5B0290BF825000F1F78 /* SurveyViewModel.swift in Sources */,
 				266C4FD0290D68FB00750643 /* BannerView.swift in Sources */,
 				26D0B5A1290BC86B000F1F78 /* QuestionModel.swift in Sources */,
+				26F4984F29117F1E00634430 /* BannerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

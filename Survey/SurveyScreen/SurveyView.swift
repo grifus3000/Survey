@@ -46,9 +46,7 @@ struct SurveyView: View {
                     Spacer()
                 }
                 if viewModel.bannerIsShowing {
-                    BannerView(bannerText: viewModel.bannerText,
-                               backgroundColor: viewModel.bannerColor,
-                               isRetryButtonVisible: viewModel.isRetryButtonVisible,
+                    BannerView(model: viewModel.bannerModel,
                                buttonTapHandler: viewModel.retryButtonHandler)
                         .onAppear {
                             viewModel.bannerWasAppeared()
