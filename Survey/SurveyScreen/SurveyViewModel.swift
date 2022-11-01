@@ -39,7 +39,7 @@ protocol SurveyViewModeling: ObservableObject {
     func viewOnDisappear()
 }
 
-class SurveyViewModel: SurveyViewModeling {
+final class SurveyViewModel: SurveyViewModeling {
     // MARK: - Public Properties
     
     var isNextButtonDisabled: Bool {
@@ -147,7 +147,11 @@ class SurveyViewModel: SurveyViewModeling {
     }
     
     func bannerWasAppeared() {
-        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(didEndTimer), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 3,
+                                     target: self,
+                                     selector: #selector(didEndTimer),
+                                     userInfo: nil,
+                                     repeats: false)
     }
     
     func viewOnAppear() {

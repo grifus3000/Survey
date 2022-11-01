@@ -8,7 +8,7 @@
 import Foundation
 @testable import Survey
 
-class DataCoderServiceMock: DataCoderServiceProtocol {
+final class DataCoderServiceMock: DataCoderServiceProtocol {
     var questionModel: [QuestionModel]
     
     init(questionModel: [QuestionModel]) {

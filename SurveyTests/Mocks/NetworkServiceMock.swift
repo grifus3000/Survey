@@ -9,7 +9,7 @@ import Foundation
 import Combine
 @testable import Survey
 
-class NetworkServiceMock: NetworkServiceProtocol {
+final class NetworkServiceMock: NetworkServiceProtocol {
     var statusCode = 200
     
     func getDataPublisher(by url: URL) -> AnyPublisher<Data, URLError> {
