@@ -144,7 +144,7 @@ final class SurveyViewModel: SurveyViewModeling {
     }
     
     func bannerWasAppeared() {
-        timer = Timer.scheduledTimer(timeInterval: 1,
+        timer = Timer.scheduledTimer(timeInterval: 3,
                                      target: self,
                                      selector: #selector(didEndTimer),
                                      userInfo: nil,
@@ -168,11 +168,12 @@ final class SurveyViewModel: SurveyViewModeling {
     
     func submitAnswer() {
         guard let id = currentQuestion?.id,
-              !bannerIsShowing,
               !answer.isEmpty else {
             return
         }
 
+        timer?.fire()
+        
         let answerModel = AnswerPostData(id: id, answer: answer)
         post(answer: answerModel)
     }
