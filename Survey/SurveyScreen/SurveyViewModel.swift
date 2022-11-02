@@ -144,7 +144,7 @@ final class SurveyViewModel: SurveyViewModeling {
     }
     
     func bannerWasAppeared() {
-        timer = Timer.scheduledTimer(timeInterval: 3,
+        timer = Timer.scheduledTimer(timeInterval: 1,
                                      target: self,
                                      selector: #selector(didEndTimer),
                                      userInfo: nil,
@@ -188,12 +188,27 @@ final class SurveyViewModel: SurveyViewModeling {
         submitAnswer()
     }
     
+    private var postStatus: PostStatus = .notInProgress
+    
+    private enum PostStatus {
+        case inProgress
+        case notInProgress
+    }
+    
     private func post(answer: AnswerPostData) {
         guard let url = URL(string: postUrl),
               let data = dataCoderService.encode(element: answer) else {
             return
         }
         
+        switch postStatus {
+        case .notInProgress:
+            break
+        case .inProgress:
+            return
+        }
+        
+        postStatus = .inProgress
         networkService.postDataPublisher(by: url, with: data)
             .receive(on: DispatchQueue.main)
             .sink { error in
@@ -202,11 +217,18 @@ final class SurveyViewModel: SurveyViewModeling {
                 guard let response = response as? HTTPURLResponse else { return }
                 
                 self?.handle(response: response)
+                self?.clearDisposables()
             }
             .store(in: &disposables)
     }
     
+    private func clearDisposables() {
+        disposables = Set()
+    }
+    
     private func handle(response: HTTPURLResponse) {
+        postStatus = .notInProgress
+
         if 200...299 ~= response.statusCode  {
             postWasSuccessful()
         } else if 400...499 ~= response.statusCode {
