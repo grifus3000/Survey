@@ -127,6 +127,8 @@ final class SurveyViewModel: SurveyViewModeling {
     init(networkService: NetworkServiceProtocol, dataCoderService: DataCoderServiceProtocol) {
         self.networkService = networkService
         self.dataCoderService = dataCoderService
+        
+        getModel()
     }
     
     // MARK: - Public Methods
@@ -152,7 +154,6 @@ final class SurveyViewModel: SurveyViewModeling {
     }
     
     func viewOnAppear() {
-        getModel()
         retryButtonHandler = { [weak self] in
             self?.retrySendAnswer()
         }

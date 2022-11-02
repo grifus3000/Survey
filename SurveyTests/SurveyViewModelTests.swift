@@ -47,9 +47,7 @@ final class SurveyViewModelTests: XCTestCase {
         try super.tearDownWithError()
     }
 
-    func testViewOnAppear() throws {
-        
-        sut.viewOnAppear()
+    func testInitializing() throws {
         setupData()
         
         XCTAssertEqual(sut.answer, questionsModel.first?.answer ?? "")
@@ -58,7 +56,6 @@ final class SurveyViewModelTests: XCTestCase {
     }
     
     func testGetNextQuestion() throws {
-        sut.viewOnAppear()
         setupData()
 
         sut.getNextQuestion()
@@ -70,7 +67,6 @@ final class SurveyViewModelTests: XCTestCase {
     }
     
     func testGetPreviousQuestion() throws {
-        sut.viewOnAppear()
         setupData()
         
         sut.currentId = questionsModel.last?.id
@@ -85,7 +81,6 @@ final class SurveyViewModelTests: XCTestCase {
     
     func testSubmitQuestionsCount() throws {
         setupAnswers()
-        sut.viewOnAppear()
         setupData()
         
         XCTAssertEqual(sut.submittedQuestionsCount, 2)
@@ -93,7 +88,6 @@ final class SurveyViewModelTests: XCTestCase {
     
     func testSubmitQuestionsActionsSubmitted() throws {
         setupAnswers()
-        sut.viewOnAppear()
         setupData()
         
         XCTAssertEqual(sut.isSubmitButtonDisabled, true)
@@ -103,7 +97,6 @@ final class SurveyViewModelTests: XCTestCase {
     
     func testSubmitQuestionsActionsNoAnswer() throws {
         setupAnswers()
-        sut.viewOnAppear()
         setupData()
         
         sut.currentId = 2
@@ -115,7 +108,6 @@ final class SurveyViewModelTests: XCTestCase {
     
     func testSubmitQuestionsActionsWithAnswer() throws {
         setupAnswers()
-        sut.viewOnAppear()
         setupData()
         
         sut.currentId = 2
@@ -127,7 +119,6 @@ final class SurveyViewModelTests: XCTestCase {
     }
     
     func testSubmitSuccess() throws {
-        sut.viewOnAppear()
         setupData()
         let answer = "Answer"
         let expectation = expectation(description: "submit")
@@ -149,7 +140,6 @@ final class SurveyViewModelTests: XCTestCase {
     }
     
     func testSubmitFailure() throws {
-        sut.viewOnAppear()
         setupData()
         networkServiceMock.statusCode = 400
         let answer = "Answer"
@@ -172,7 +162,6 @@ final class SurveyViewModelTests: XCTestCase {
     }
     
     func testViewOnDisappear() throws {
-        sut.viewOnAppear()
         setupData()
         setupAnswers()
         
